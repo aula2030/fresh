@@ -1,10 +1,34 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { ref } from 'vue'
 
 const props = defineProps({
     orders: Object
 });
+
+const state = ref({ orders: props.orders });
+
+function processNew(data) {
+    const newOrder = {
+        reference: data.reference,
+        date: data.date,
+        customer: data.customer,
+        address: data.address,
+        country: data.country,
+        products: data.products,
+        state: data.state
+    };
+    state.value.orders.unshift(newOrder);
+}
+
+Pusher.logToConsole = true;
+
+Echo.private('whole-cow-356')
+    .listen('NewOrderCreated', (e) => {
+        processNew(JSON.parse(e.order));
+    });
+
 </script>
 
 <template>
@@ -34,7 +58,7 @@ const props = defineProps({
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-300">
-                                <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <tr v-for="order in state.orders" :key="order.id" class="hover:bg-gray-100 dark:hover:bg-gray-600">
                                     <td class="px-6 py-4 text-sm text-gray-500 text-right">{{ order.reference }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ order.date }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">{{ order.customer }}</td>
