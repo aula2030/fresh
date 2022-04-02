@@ -24,11 +24,21 @@ class Address extends Model
         return $this->belongsTo(CountryLang::class, 'id_country', 'id_country');
     }
 
+    /**
+     * Attibute: Full customer name
+     *
+     * @return Attribute
+     */
     public function fullCustomerName(): Attribute
     {
         return Attribute::get(fn() => $this->firstname . " " . $this->lastname);
     }
 
+    /**
+     * Attibute: Full address data
+     *
+     * @return Attribute
+     */
     public function fullAddress(): Attribute
     {
         return Attribute::get(fn() => implode(", ", [$this->address1, $this->address2, $this->city]));
