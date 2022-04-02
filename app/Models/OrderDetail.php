@@ -10,4 +10,5 @@ class OrderDetail extends Model
     use HasFactory;
 
     protected $table = 'order_detail';
+    public $timestamps = false;
 }
