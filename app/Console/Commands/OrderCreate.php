@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\NewOrderCreated;
 use App\Models\Order;
 use Illuminate\Console\Command;
 
@@ -28,7 +29,11 @@ class OrderCreate extends Command
      */
     public function handle()
     {
-        Order::factory(1)->withRandomNumberOfProducts(1,4)->create();
+        $orderCollection = Order::factory(1)->withRandomNumberOfProducts(1,4)->create();
+
+        $order = Order::find($orderCollection[0]->id_order);
+
+        NewOrderCreated::dispatch($order);
 
         return 0;
     }

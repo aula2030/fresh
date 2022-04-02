@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\NewOrderCreated;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,16 +13,8 @@ class Order extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $primaryKey = 'id_order';
     protected $dates = ['date_add'];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saved(function ($order) {
-            NewOrderCreated::dispatch($order->id);
-        });
-    }
 
     /**
      * Address relation N to 1
