@@ -20,6 +20,7 @@ function processNew(data) {
         state: data.state
     };
     state.value.orders.unshift(newOrder);
+    state.value.orders.splice(-1);
 }
 
 Pusher.logToConsole = true;
