@@ -32,7 +32,7 @@ per defecte sqlite, però només cal configurar l'accés a una altra BD al fitxe
 
 #### Pusher
 L'aplicació utilitza [Pusher](https://pusher.com/) per l'actualització en temps real 
-de les dades de les comandes. És necessari disposar d'un compte (gratuit) i les seves
+de les dades de les comandes. És necessari disposar d'un compte (gratuït) i les seves
 dades de configuració.
 
 ### Passos
