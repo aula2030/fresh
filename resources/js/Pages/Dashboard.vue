@@ -1,7 +1,8 @@
 <script setup>
-import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { Head } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue'
+import { Head } from '@inertiajs/inertia-vue3';
+import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
+import Order from "@/Pages/Dashboard/Order";
 
 const props = defineProps({
     orders: Object
@@ -59,15 +60,7 @@ Echo.private('whole-cow-356')
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-300">
-                                <tr v-for="order in state.orders" :key="order.id" class="hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <td class="px-6 py-4 text-sm text-gray-500 text-right">{{ order.reference }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{ order.date }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ order.customer }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ order.address }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ order.country }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ order.products.join(', ') }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ order.state}}</td>
-                                </tr>
+                                <Order :orders=state.orders />
                             </tbody>
                         </table>
                     </div>
